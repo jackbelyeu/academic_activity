@@ -7,6 +7,7 @@ export default ({ mode }: { mode: 'production' | 'development' | 'test' }) => {
   const ENV = { ...process.env, ...loadEnv(mode, 'env', '') };
 
   return defineConfig({
+    envDir: 'env',
     server: { host: 'localhost', port: +(ENV.VITE_PORT || 3000) },
     build: {
       ssr: true,
