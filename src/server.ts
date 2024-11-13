@@ -20,8 +20,6 @@ app.get('/', (req, res) => {
 app.get('/user', async (req, res) => {
   try {
     const [rows] = await connection.query('SELECT * FROM User');
-    // res.json(rows);
-    console.log(rows);
     res.render('pages/index', { rows });
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
