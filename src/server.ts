@@ -4,6 +4,8 @@ import { PORT, PASSWORD } from '@/config';
 
 export const app = express();
 
+app.set('view engine', 'ejs');
+
 const connection = await mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -18,7 +20,9 @@ app.get('/', (req, res) => {
 app.get('/user', async (req, res) => {
   try {
     const [rows] = await connection.query('SELECT * FROM User');
-    res.json(rows);
+    // res.json(rows);
+    console.log(rows);
+    res.render('pages/index', { rows });
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
   }
