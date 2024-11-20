@@ -3,7 +3,7 @@ import mysql from 'mysql2/promise';
 import { PORT, PASSWORD } from '@/config';
 
 export const app = express();
-
+app.use(express.json());
 app.set('view engine', 'ejs');
 
 const connection = await mysql.createConnection({

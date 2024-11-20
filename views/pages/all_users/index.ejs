@@ -21,17 +21,17 @@
           <input id="email" placeholder="Enter email here" />
           <button type="submit">Submit</button>
         </form>
-        <script>
+        <script async>
           document.getElementById('postNewUser').addEventListener('submit', async event => {
             event.preventDefault();
-            const id = document.getElementById('id').value;
-            const name = document.getElementById('name').value;
+            const UserID = document.getElementById('id').value;
+            const UserName = document.getElementById('name').value;
             const email = document.getElementById('email').value;
 
             const response = await fetch('http://localhost:3005/user', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ id, name, email }),
+              body: JSON.stringify({ UserID, UserName, email }),
             });
 
             const result = await response.json();
