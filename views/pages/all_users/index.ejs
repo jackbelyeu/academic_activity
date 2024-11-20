@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <%- include('../partials/head'); %>
+    <%- include('../../partials/head'); %>
   </head>
   <body class="container">
-    <header><%- include('../partials/header'); %></header>
+    <header><%- include('../../partials/header'); %></header>
 
     <main>
       <div class="jumbotron">
-        <h1>Welcome to our database</h1>
+        <h1>All Users</h1>
         <ul>
           <% rows.forEach(function(row) { %>
           <li><strong><%= row.UserName %></strong>, <%= row.UserID %>, <%= row.email %></li>
@@ -17,6 +17,6 @@
       </div>
     </main>
 
-    <footer><%- include('../partials/footer'); %></footer>
+    <footer><%- include('../../partials/footer'); %></footer>
   </body>
 </html>

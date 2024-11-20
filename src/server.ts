@@ -14,16 +14,25 @@ const connection = await mysql.createConnection({
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.render('pages/home/index');
 });
 
 app.get('/user', async (req, res) => {
   try {
     const [rows] = await connection.query('SELECT * FROM User');
-    res.render('pages/index', { rows });
+    res.render('pages/all_users/index', { rows });
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
   }
 });
+
+// app.get('/routeNameHere', async (req, res) => {
+//   try {
+//     const [dataFromSQLQuery] = await connection.query('SQL Query Here');
+//     res.render('pages/PAGENAMEHERE/index', { dataFromSQLQuery });
+//   } catch (error: unknown) {
+//     res.status(500).json({ error: (error as Error).message });
+//   }
+// });
 
 if (import.meta.env.PROD) app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
