@@ -26,13 +26,26 @@ app.get('/user', async (req, res) => {
   }
 });
 
-// app.get('/routeNameHere', async (req, res) => {
-//   try {
-//     const [dataFromSQLQuery] = await connection.query('SQL Query Here');
-//     res.render('pages/PAGENAMEHERE/index', { dataFromSQLQuery });
-//   } catch (error: unknown) {
-//     res.status(500).json({ error: (error as Error).message });
-//   }
-// });
+app.get('/task', async (req, res) => {
+  try {
+    const [taskData] = await connection.query(
+      'SELECT TaskName, StartDate, EndDate, Status FROM Task WHERE ProjectID = 1;'
+    );
+    res.render('pages/task/index', { taskData });
+  } catch (error: unknown) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
+
+app.post('/add_user', async (req, res) => {
+  try {
+    const [newUser] = await connection.query(
+      'INSERT INTO User (UserID, UserName, email) VALUES (1000, Jane Doe, janedoe@example.com'
+    );
+    res.send(newUser);
+  } catch (error: unknown) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
 
 if (import.meta.env.PROD) app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`));
