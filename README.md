@@ -1,3 +1,12 @@
+# Quick Start
+1. Install node https://nodejs.org/en
+2. Install yarn ```npm install -g yarn```
+3. Clone the repository ```git clone https://github.com/jackbelyeu/academic_activity```
+4. Use `yarn` to install dependencies
+5. Use `yarn dev` to start development server
+6. In env folder, create a new file named `.env.local`
+7. Paste the following code into this new file `VITE_PASSWORD='yourActualPasswordHere'`
+
 # Backend
 
 ---
