@@ -37,11 +37,14 @@ app.get('/task', async (req, res) => {
   }
 });
 
-app.post('/add_user', async (req, res) => {
+app.post('/user', async (req, res) => {
   try {
-    const [newUser] = await connection.query(
-      'INSERT INTO User (UserID, UserName, email) VALUES (1000, Jane Doe, janedoe@example.com'
-    );
+    const { UserID, UserName, email } = req.body;
+    const [newUser] = await connection.query('INSERT INTO User (UserID, UserName, email) VALUES (?, ?, ?)', [
+      UserID,
+      UserName,
+      email,
+    ]);
     res.send(newUser);
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
