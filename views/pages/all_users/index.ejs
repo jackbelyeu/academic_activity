@@ -14,6 +14,28 @@
           <li><strong><%= row.UserName %></strong>, <%= row.UserID %>, <%= row.email %></li>
           <% }); %>
         </ul>
+
+        <form id='postNewUser'>
+          <input id='name' placeholder='Enter name here'>
+          <input id='email' placeholder='Enter email here'>
+          <button type='submit'>Submit</button>
+        </form>
+        <script>
+          document.getElementById('postNewUser').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+
+            const response = await fetch('https://localhost:3005/user', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json'},
+              body: JSON.stringify({ name, email })
+            });
+
+            const result = await response.json();
+            console.log(result);
+          });
+        </script>
+
       </div>
     </main>
 
