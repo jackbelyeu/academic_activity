@@ -28,9 +28,7 @@ app.get('/user', async (req, res) => {
 
 app.get('/task', async (req, res) => {
   try {
-    const [taskData] = await connection.query(
-      'SELECT TaskName, StartDate, EndDate, Status FROM Task WHERE ProjectID = 1;'
-    );
+    const [taskData] = await connection.query('SELECT TaskName, StartDate, EndDate, Status FROM Task');
     res.render('pages/task/index', { taskData });
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
@@ -46,6 +44,28 @@ app.post('/user', async (req, res) => {
       email,
     ]);
     res.send(newUser);
+  } catch (error: unknown) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
+
+app.get('/projects', async (req, res) => {
+  try {
+    const [projectData] = await connection.query('SELECT ProjectName, StartDate, EndDate, Status FROM Project');
+    res.render('pages/projects/index', { projectData });
+  } catch (error: unknown) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
+
+app.post('/task', async (req, res) => {
+  try {
+    const { TaskName, StartDate, EndDate, Status } = req.body;
+    const [newTask] = await connection.query(
+      'INSERT INTO Task (TaskName, StartDate, EndDate, Status) VALUES (?, ?, ?)',
+      [TaskName, StartDate, EndDate, Status]
+    );
+    res.send(newTask);
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
   }

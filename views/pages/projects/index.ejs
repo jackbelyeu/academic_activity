@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('../../partials/head'); %>
+  </head>
+  <body class="container">
+    <header><%- include('../../partials/header'); %></header>
+
+    <main>
+      <div class="jumbotron">
+        <h1>Projects</h1>
+        <ul>
+          <% projectData.forEach(function(row) { %>
+          <li><strong><%= row.ProjectName %></strong>, <%= row.StartDate %>, <%= row.EndDate %>, <%= row.Status %></li>
+          <% }); %>
+        </ul>
+      </div>
+    </main>
+
+    <footer><%- include('../../partials/footer'); %></footer>
+  </body>
+</html>
