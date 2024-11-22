@@ -74,11 +74,24 @@ app.get('/projects', async (req, res) => {
   }
 });
 
+app.post('/projects', async (req, res) => {
+  try {
+    const { ProjectName, StartDate, EndDate, Status } = req.body;
+    const [newProject] = await connection.query(
+      'INSERT INTO Project (ProjectName, StartDate, EndDate, Status) VALUES (?, ?, ?, ?)',
+      [ProjectName, StartDate, EndDate, Status]
+    );
+    res.send(newProject);
+  } catch (error: unknown) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
+
 app.post('/task', async (req, res) => {
   try {
     const { TaskName, StartDate, EndDate, Status } = req.body;
     const [newTask] = await connection.query(
-      'INSERT INTO Task (TaskName, StartDate, EndDate, Status) VALUES (?, ?, ?)',
+      'INSERT INTO Task (TaskName, StartDate, EndDate, Status) VALUES (?, ?, ?, ?)',
       [TaskName, StartDate, EndDate, Status]
     );
     res.send(newTask);
