@@ -1,5 +1,5 @@
 import express from 'express';
-import mysql from 'mysql2/promise';
+import mysql, { type ResultSetHeader } from 'mysql2/promise';
 import { PORT, PASSWORD } from '@/config';
 
 export const app = express();
@@ -44,6 +44,22 @@ app.post('/user', async (req, res) => {
       email,
     ]);
     res.send(newUser);
+  } catch (error: unknown) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
+
+app.delete('/user/:UserID', async (req, res) => {
+  try {
+    const { UserID } = req.params;
+    const [result] = await connection.query<ResultSetHeader>('DELETE FROM User WHERE UserID = ?', [UserID]);
+    console.log(result);
+
+    if (result.affectedRows > 0) {
+      res.json({ message: `User with ID ${UserID} deleted successfully.` });
+    } else {
+      res.status(404).json({ error: `User with ID ${UserID} not found.` });
+    }
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });
   }

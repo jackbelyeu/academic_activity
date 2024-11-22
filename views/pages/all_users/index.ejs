@@ -11,7 +11,10 @@
         <h1>All Users</h1>
         <ul>
           <% rows.forEach(function(row) { %>
-          <li><strong><%= row.UserName %></strong>, <%= row.UserID %>, <%= row.email %></li>
+          <li>
+            <strong><%= row.UserName %></strong>, <%= row.UserID %>, <%= row.email %>
+            <button onclick="deleteUser('<%= row.UserID %>')">Delete</button>
+          </li>
           <% }); %>
         </ul>
 
@@ -37,6 +40,25 @@
             const result = await response.json();
             console.log(result);
           });
+
+          async function deleteUser(UserID) {
+            if (!confirm(`Are you sure you want to delete user with ID ${UserID}?`)) {
+              return;
+            }
+
+            const response = await fetch(`http://localhost:3005/user/${UserID}`, {
+              method: 'DELETE',
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              alert(result.message);
+              location.reload(); // Reload the page to update the list
+            } else {
+              alert(`Error: ${result.error}`);
+            }
+          }
         </script>
       </div>
     </main>
