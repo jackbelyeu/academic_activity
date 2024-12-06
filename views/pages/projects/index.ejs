@@ -16,23 +16,23 @@
         </ul>
         <form id="postNewProject">
           <input id="ProjectName" placeholder="Enter project name here" />
-          <input id="startDate" placeholder="Enter project start date here" />
-          <input id="endDate" placeholder="Enter project end date here" />
+          <input id="startDate" type="date" placeholder="Enter project start date here" />
+          <input id="endDate" type="date" placeholder="Enter project end date here" />
           <input id="status" placeholder="Enter project status here" />
           <button type="submit">Submit</button>
         </form>
         <script async>
           document.getElementById('postNewProject').addEventListener('submit', async event => {
             event.preventDefault();
-            const TaskName = document.getElementById('ProjectName').value;
+            const ProjectName = document.getElementById('ProjectName').value;
             const StartDate = document.getElementById('startDate').value;
             const EndDate = document.getElementById('endDate').value;
             const Status = document.getElementById('status').value;
 
-            const response = await fetch('http://localhost:3005/user', {
+            const response = await fetch('http://localhost:3005/projects', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ UserID, UserName, email }),
+              body: JSON.stringify({ ProjectName, StartDate, EndDate, Status }),
             });
 
             const result = await response.json();
