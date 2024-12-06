@@ -16,8 +16,8 @@
         </ul>
         <form id="postNewTask">
           <input id="taskName" placeholder="Enter task name here" />
-          <input id="startDate" placeholder="Enter task start date here" />
-          <input id="endDate" placeholder="Enter task end date here" />
+          <input id="startDate" type="date" placeholder="Enter task start date here" />
+          <input id="endDate" type="date" placeholder="Enter task end date here" />
           <input id="status" placeholder="Enter project status here" />
           <button type="submit">Submit</button>
         </form>
@@ -29,10 +29,10 @@
             const EndDate = document.getElementById('endDate').value;
             const Status = document.getElementById('status').value;
 
-            const response = await fetch('http://localhost:3005/user', {
+            const response = await fetch('http://localhost:3005/task', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ UserID, UserName, email }),
+              body: JSON.stringify({ TaskName, StartDate, EndDate, Status }),
             });
 
             const result = await response.json();
