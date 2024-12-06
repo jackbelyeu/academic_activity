@@ -35,6 +35,19 @@ app.get('/task', async (req, res) => {
   }
 });
 
+app.get('/tasks/:projectId', async (req, res) => {
+  try {
+    const { projectId } = req.params;
+    const [tasks] = await connection.query(
+      'SELECT TaskName, StartDate, EndDate, Status FROM Task WHERE ProjectID = ?',
+      [projectId]
+    );
+    res.json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: (error as Error).message });
+  }
+});
+
 app.post('/user', async (req, res) => {
   try {
     const { UserID, UserName, email } = req.body;
@@ -67,7 +80,9 @@ app.delete('/user/:UserID', async (req, res) => {
 
 app.get('/projects', async (req, res) => {
   try {
-    const [projectData] = await connection.query('SELECT ProjectName, StartDate, EndDate, Status FROM Project');
+    const [projectData] = await connection.query(
+      'SELECT ProjectID, ProjectName, StartDate, EndDate, Status FROM Project'
+    );
     res.render('pages/projects/index', { projectData });
   } catch (error: unknown) {
     res.status(500).json({ error: (error as Error).message });

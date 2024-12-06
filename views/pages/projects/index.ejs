@@ -11,7 +11,10 @@
         <h1>Projects</h1>
         <ul>
           <% projectData.forEach(function(row) { %>
-          <li><strong><%= row.ProjectName %></strong>, <%= row.StartDate %>, <%= row.EndDate %>, <%= row.Status %></li>
+          <li>
+            <strong><%= row.ProjectName %></strong>, <%= row.StartDate %>, <%= row.EndDate %>, <%= row.Status %>
+            <button class="fetch-tasks" data-project-id=<%= row.ProjectID %>>View Tasks</button>
+          </li>
           <% }); %>
         </ul>
         <form id="postNewProject">
@@ -21,6 +24,7 @@
           <input id="status" placeholder="Enter project status here" />
           <button type="submit">Submit</button>
         </form>
+        <div id="taskContainer"></div>
         <script async>
           document.getElementById('postNewProject').addEventListener('submit', async event => {
             event.preventDefault();
@@ -36,7 +40,48 @@
             });
 
             const result = await response.json();
-            console.log(result);
+          });
+        </script>
+        <script async>
+          // Attach event listeners to all fetch-tasks buttons
+          document.querySelectorAll('.fetch-tasks').forEach(button => {
+            button.addEventListener('click', async event => {
+              const projectId = event.target.getAttribute('data-project-id');
+              const response = await fetch(`/tasks/${projectId}`);
+              const tasks = await response.json();
+
+              const taskContainer = document.getElementById('taskContainer');
+              taskContainer.innerHTML = ''; // Clear any existing content
+
+              const taskBox = document.createElement('div');
+              taskBox.style.border = '1px solid #ccc';
+              taskBox.style.padding = '10px';
+              taskBox.style.marginTop = '20px';
+              taskBox.style.backgroundColor = '#f9f9f9';
+
+              const title = document.createElement('h3');
+              title.textContent = `Tasks for Project ID: ${projectId}`;
+              taskBox.appendChild(title);
+
+              const taskList = document.createElement('ul');
+              tasks.forEach(task => {
+                const taskItem = document.createElement('li');
+                taskItem.style.marginBottom = '10px';
+
+                const taskInfo = document.createElement('p');
+                taskInfo.innerHTML = `
+                  <strong>Task Name:</strong> ${task.TaskName} <br>
+                  <strong>Start Date:</strong> ${new Date(task.StartDate).toLocaleDateString()} <br>
+                  <strong>End Date:</strong> ${new Date(task.EndDate).toLocaleDateString()} <br>
+                  <strong>Status:</strong> ${task.Status}
+                `;
+                taskItem.appendChild(taskInfo);
+                taskList.appendChild(taskItem);
+              });
+
+              taskBox.appendChild(taskList);
+              taskContainer.appendChild(taskBox);
+            });
           });
         </script>
       </div>
