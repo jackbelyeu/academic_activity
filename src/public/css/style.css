@@ -1,0 +1,54 @@
+/* Navbar Styling */
+.custom-navbar {
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-bottom: 2px solid #f1f1f1; /* Border at the bottom */
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+/* Brand Styling */
+.custom-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.custom-brand:hover {
+  text-decoration: none;
+  color: #0056b3;
+}
+
+/* Navbar Links as Buttons */
+.custom-link {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 5px;
+  background-color: #ffffff; /* White background */
+  border: 3px solid #007bff; /* Defined border */
+  border-radius: 8px; /* Rounded corners */
+  color: #007bff;
+  text-decoration: none;
+  transition: 0.3s ease;
+
+  /* Beveled Effect */
+  box-shadow:
+    inset 2px 2px 5px rgba(255, 255, 255, 0.8),
+    /* Inner light bevel */ inset -2px -2px 5px rgba(0, 0, 0, 0.1),
+    /* Inner shadow for depth */ 4px 4px 10px rgba(0, 0, 0, 0.2); /* Outer drop shadow */
+}
+
+.custom-link:hover {
+  background-color: #007bff; /* Background changes on hover */
+  color: #ffffff; /* Text turns white on hover */
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.8),
+    /* Reverse bevel on hover */ inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    /* Reverse shadow on hover */ 6px 6px 12px rgba(0, 0, 0, 0.3); /* Slightly deeper outer shadow */
+}
+
+/* Navbar List Items */
+.custom-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
